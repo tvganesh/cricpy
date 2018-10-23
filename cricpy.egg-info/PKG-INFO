@@ -1,0 +1,20 @@
+Metadata-Version: 2.1
+Name: cricpy
+Version: 0.0.1
+Summary: Analyze Cricketers Based on ESPN Cricinfo Statsguru
+Home-page: https://github.com/tvganesh/pycricketr
+Author: Tinniam V Ganesh
+Author-email: tvganesh.85@gmail.com
+License: UNKNOWN
+Description: # Pyc 
+        
+        ## Description: 
+        
+        Tools for analyzing performances of cricketers based on stats in
+        ESPN Cricinfo Statsguru. The toolset can  be used for analysis of Tests,ODIs 
+        and Twenty20 matches of both batsmen and bowlers.
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown

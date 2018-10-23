@@ -1,0 +1,8 @@
+README.md
+setup.py
+cricpy/__init__.py
+cricpy/analytics.py
+cricpy.egg-info/PKG-INFO
+cricpy.egg-info/SOURCES.txt
+cricpy.egg-info/dependency_links.txt
+cricpy.egg-info/top_level.txt
