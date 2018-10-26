@@ -157,6 +157,8 @@ def batsman6s(file, name="A Hookshot") :
          horizontalalignment='center',
          verticalalignment='center',
          )
+    plt.show()
+    return
     
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -242,6 +244,8 @@ def batsmanAvgRunsGround(file, name="A Latecut"):
              horizontalalignment='center',
              verticalalignment='center',
              )
+    plt.show()
+    return
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -328,6 +332,9 @@ def batsmanAvgRunsOpposition(file, name="A Latecut"):
              horizontalalignment='center',
              verticalalignment='center',
              )
+    plt.show()
+    return
+
     
     
 import matplotlib.pyplot as plt
@@ -412,6 +419,9 @@ def batsmanContributionWonLost(file,name="A Hitter"):
          horizontalalignment='center',
          verticalalignment='center',
          )
+    plt.show()
+    return
+
     
 
 import matplotlib.pyplot as plt
@@ -487,6 +497,8 @@ def batsmanCumulativeAverageRuns(file,name="A Leg Glance"):
                  horizontalalignment='center',
                  verticalalignment='center',
                  )
+    plt.show()
+    return
     
 import matplotlib.pyplot as plt
 from pylab import rcParams
@@ -562,7 +574,9 @@ def batsmanCumulativeStrikeRate(file,name="A Leg Glance"):
     plt.text(200,60,'Data source-Courtesy:ESPN Cricinfo',
                  horizontalalignment='center',
                  verticalalignment='center',
-                 )  
+                 ) 
+    plt.show()
+    return
     
 
 import matplotlib.pyplot as plt
@@ -644,6 +658,8 @@ def batsmanDismissals(file, name="A Squarecut"):
     plt.pie(df3['Count'], labels=df3['Dismissal'],autopct='%.1f%%')
     atitle = name +  "-Pie chart of dismissals"
     plt.suptitle(atitle, fontsize=16)
+    plt.show()
+    return
     
 
 import numpy as np
@@ -741,7 +757,8 @@ def batsmanMeanStrikeRate(file, name="A Hitter"):
              horizontalalignment='center',
              verticalalignment='center',
              )
-
+    plt.show()
+    return
 
 
 import matplotlib.pyplot as plt
@@ -810,8 +827,6 @@ def batsmanMovingAverage(file,name="A Squarecut") :
     batsmanMovingAverage(pathToFile,"Sachin Tendulkar")
     '''
     # Compute the moving average of the time series
-    file="../data/tendulkar.csv"
-    name="tendulkar"
     batsman = clean(file)
     
     # Set figure size
@@ -834,6 +849,8 @@ def batsmanMovingAverage(file,name="A Squarecut") :
                  horizontalalignment='center',
                  verticalalignment='center',
                  )
+    plt.show()
+    return
 
 
 import matplotlib.pyplot as plt
@@ -913,12 +930,13 @@ def batsmanPerfBoxHist(file, name="A Hitter"):
     plt.hist(batsman['Runs'],bins=20, edgecolor='black')
     plt.xlabel('Runs')
     plt.ylabel('Strike Rate')
-    plt.title(atitle)
+    plt.title(atitle,size=16)
     plt.text(180, 70,'Data source-Courtesy:ESPN Cricinfo',
              horizontalalignment='center',
              verticalalignment='center',
              )
-    
+    plt.show()
+    return    
     
 from statsmodels.tsa.arima_model import ARIMA
 import pandas as pd
@@ -1092,6 +1110,8 @@ def batsmanPerfHomeAway(file,name="A Hitter"):
          horizontalalignment='center',
          verticalalignment='center',
          )
+    plt.show()
+    return  
        
     
 import numpy as np
@@ -1173,6 +1193,7 @@ def batsmanRunsFreqPerf(file, name="A Hookshot"):
              verticalalignment='center',
              )
     plt.show()
+    return
     
 
 from sklearn.cluster import KMeans
@@ -1184,7 +1205,7 @@ from pylab import rcParams
 # Date : 14 Oct 2018
 # Function: batsmanRunsLikelihood
 # This function used K-Means to compute and plot the runs likelihood for the batsman
-#
+# To do - Include scatterplot
 ###########################################################################################
 
 def batsmanRunsLikelihood(file, name="A Squarecut") :
@@ -1277,7 +1298,8 @@ def batsmanRunsLikelihood(file, name="A Squarecut") :
     ax.set_ylabel('Minutes')
     ax.set_zlabel('Runs');
     plt.title(atitle)
-    
+    plt.show()
+    return   
     
     
 from sklearn.linear_model import LinearRegression
@@ -1431,8 +1453,7 @@ def batsmanRunsRanges(file, name= "A Hookshot") :
     '''
     
     # Clean file
-    #file="../data/tendulkar.csv"
-    df = clean(file)
+    batsman = clean(file)
     runs= pd.to_numeric(batsman['Runs'])
     hist, bins = np.histogram(runs, bins = 20)
     midBin=[]
@@ -1456,6 +1477,8 @@ def batsmanRunsRanges(file, name= "A Hookshot") :
          horizontalalignment='center',
          verticalalignment='center',
          )
+    plt.show()
+    return   
     
     
 import matplotlib.pyplot as plt
@@ -1535,8 +1558,6 @@ def battingPerf3d(file, name="A Hookshot") :
     df2['Mins']=pd.to_numeric(df2['Mins'])
     df2['Runs']=pd.to_numeric(df2['Runs'])
     
-
-    ax = fig.add_subplot(111, projection='3d')
     X=df2.iloc[:,0:2]
     Y=df2.iloc[:,2]
 
@@ -1552,13 +1573,14 @@ def battingPerf3d(file, name="A Hookshot") :
     
     
     plt3d = plt.figure().gca(projection='3d')
-    plt3d.scatter(ballsFaced, minutes, runs)
+    plt3d.scatter(df2['BF'],df2['Mins'],df2['Runs'])
     plt3d.plot_surface(xx.reshape(20,20),yy,predictedRuns, alpha=0.2)
     plt3d.set_xlabel('BallsFaced')
     plt3d.set_ylabel('Minutes')
     plt3d.set_zlabel('Runs');
     plt.title(atitle)
     plt.show()
+    return
     
     
 import matplotlib.pyplot as plt
@@ -1569,7 +1591,7 @@ from pylab import rcParams
 # Function: bowlerAvgWktsGround
 # This function plots the average runs scored by batsman at the ground. The xlabels indicate
 # the number of innings at ground
-#
+# To do - Append number of matches to Ground
 ###########################################################################################
 
 def bowlerAvgWktsGround(file, name="A Chinaman"):
@@ -1649,6 +1671,8 @@ def bowlerAvgWktsGround(file, name="A Chinaman"):
              horizontalalignment='center',
              verticalalignment='center',
              )
+    plt.show()
+    return
     
 
 import matplotlib.pyplot as plt
@@ -1659,7 +1683,7 @@ from pylab import rcParams
 # Function: bowlerAvgWktsOpposition
 # This function plots the average runs scored by batsman at the ground. The xlabels indicate
 # the number of innings at ground
-#
+# To do - Append no of matches in Opposition
 ###########################################################################################
 
 def bowlerAvgWktsOpposition(file, name="A Chinaman"):
@@ -1738,7 +1762,8 @@ def bowlerAvgWktsOpposition(file, name="A Chinaman"):
              horizontalalignment='center',
              verticalalignment='center',
              )
-    
+    plt.show()
+    return
 
 import matplotlib.pyplot as plt
 from pylab import rcParams
@@ -1821,6 +1846,8 @@ def bowlerContributionWonLost(file,name="A Doosra"):
          horizontalalignment='center',
          verticalalignment='center',
          )
+    plt.show()
+    return
     
     
 
@@ -1897,7 +1924,8 @@ def bowlerCumulativeAvgEconRate(file,name="A Googly"):
                  verticalalignment='center',
                  )  
     
-    
+    plt.show()
+    return    
 
 import matplotlib.pyplot as plt
 from pylab import rcParams
@@ -1974,6 +2002,8 @@ def bowlerCumulativeAvgWickets(file,name="A Googly"):
                  horizontalalignment='center',
                  verticalalignment='center',
                  )  
+    plt.show()
+    return  
     
 
 import matplotlib.pyplot as plt
@@ -2055,6 +2085,8 @@ def bowlerEconRate(file, name="A Bowler") :
              horizontalalignment='center',
              verticalalignment='center',
              )
+    plt.show()
+    return 
     
 
 
@@ -2145,6 +2177,8 @@ def bowlerMovingAverage(file,name="A Doosra") :
                  verticalalignment='center',
                  )
 
+    plt.show()
+    return 
 
 
 import pandas as pd
@@ -2323,6 +2357,8 @@ def bowlerPerfHomeAway(file,name="A Googly") :
          horizontalalignment='center',
          verticalalignment='center',
          )
+    plt.show()
+    return 
        
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -2403,6 +2439,7 @@ def bowlerWktsFreqPercent(file, name="A Bowler"):
              verticalalignment='center',
              )
     plt.show()
+    return
     
 
 import seaborn as sns
@@ -2466,7 +2503,7 @@ def bowlerWktsRunsPlot(file, name="A Googly"):
     # Set figure size
     rcParams['figure.figsize'] = 10,6  
 
-    atitle = name + "- Wkts vs Runs conceded"
+    atitle = name + "- Wickets vs Runs conceded"
     ax = sns.boxplot(x='Wkts', y='Runs', data=bowler)
     plt.title(atitle)
     plt.xlabel('Wickets')
@@ -2972,12 +3009,9 @@ def relativeBatsmanCumulativeAvgRuns(filelist, names):
     Examples
     
 
-    # Retrieve the file path of a data file installed with cricketr
-    tendulkar= clean("tendulkar.csv")
-    ganguly =v clean("ganguly.csv")
-    dravid clean ("dravid.csv")
-    batsmen <-[tendulkar,dravid,ganguly]
-    names <- ["Tendulkar","Dravid","Ganguly"]
+
+    batsmen=["tendulkar.csv","dravid.csv","ganguly.csv"]
+    names = ["Tendulkar","Dravid","Ganguly"]
     relativeBatsmanCumulativeAvgRuns(batsmen,names)
 
     
@@ -2997,13 +3031,93 @@ def relativeBatsmanCumulativeAvgRuns(filelist, names):
     df1.plot()
     plt.xlabel('Innings')
     plt.ylabel('Cumulative Average Runs')
-
+    plt.title('Relative batsmen cumulative average runs')
     plt.text(180, 50,'Data source-Courtesy:ESPN Cricinfo',
              horizontalalignment='center',
              verticalalignment='center',
              ) 
+    plt.show()
+    return
+        
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from pylab import rcParams
+##########################################################################################
+# Designed and developed by Tinniam V Ganesh
+# Date : 19 Oct 2018
+# Function: relativeBatsmanCumulativeAvgRuns
+# This function computes and plots the relative cumulative average runs of batsmen
+#
+###########################################################################################
+def relativeBatsmanCumulativeStrikeRate (filelist, names):
+    '''
+    Relative batsmen cumulative average strike rate
     
+    Description
     
+    This function computes and plots the cumulative average strike rate of batsmen
+    
+    Usage
+    
+    relativeBatsmanCumulativeStrikeRate(frames, names)
+    Arguments
+    
+    frames	
+    This is a list of <batsman>.csv files obtained with an initial getPlayerData()
+    names	
+    A list of batsmen names who need to be compared
+    Value
+    
+    None
+    
+    Note
+    
+    Maintainer: Tinniam V Ganesh tvganesh.85@gmail.com
+    
+    Author(s)
+    
+    Tinniam V Ganesh
+    
+    References
+    
+    http://www.espncricinfo.com/ci/content/stats/index.html
+    https://gigadom.wordpress.com/
+    
+    See Also
+    
+    relativeBatsmanCumulativeAvgRuns relativeBowlerCumulativeAvgEconRate relativeBowlerCumulativeAvgWickets
+    
+    Examples
+
+    batsmen=["tendulkar.csv","dravid.csv","ganguly.csv"]
+    names = ["Tendulkar","Dravid","Ganguly"]
+    relativeBatsmanCumulativeAvgRuns(batsmen,names)
+
+    
+    '''
+    df1=pd.DataFrame()
+    
+    # Set figure size
+    rcParams['figure.figsize'] = 10,6  
+    
+    for idx,file in enumerate(filelist):
+        df=clean(file)
+        strikeRate=pd.to_numeric(df['SR'])
+        df1[names[idx]] = strikeRate.cumsum()/pd.Series(np.arange(1, len(strikeRate)+1), strikeRate.index)
+          
+
+
+    df1.plot()
+    plt.xlabel('Innings')
+    plt.ylabel('Cumulative Strike Rate')
+    plt.title('Relative batsmen cumulative strike rate')
+    plt.text(180, 50,'Data source-Courtesy:ESPN Cricinfo',
+             horizontalalignment='center',
+             verticalalignment='center',
+             ) 
+    plt.show()
+    return 
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -3056,14 +3170,8 @@ def relativeBowlerCumulativeAvgEconRate(filelist, names):
     relativeBatsmanCumulativeAvgRuns relativeBowlerCumulativeAvgWickets relativeBatsmanCumulativeStrikeRate
     
     Examples
-    
-
-    # Retrieve the file path of a data file installed with cricketr
-    kumble = clean( "kumble.csv")
-    warne = clean("warne.csv")
-    murali =clean("murali.csv")
-    
-    frames = [kumble,warne,murali]
+      
+    frames = ["kumble.csv","warne.csv","murali.csv"]
     names = ["Kumble","Warne","Murali"]
     relativeBowlerCumulativeAvgEconRate(frames,names)
     
@@ -3084,12 +3192,15 @@ def relativeBowlerCumulativeAvgEconRate(filelist, names):
           
     df1.plot()    
     plt.xlabel('Innings')
-    plt.ylabel('Cumulative Average Wicket Rate')
-    plt.title('Relative Cumulative Average Wicket Rate')
+    plt.ylabel('Cumulative Average Econmy Rate')
+    plt.title('Relative Cumulative Average Economy Rate')
     plt.text(150, 3,'Data source-Courtesy:ESPN Cricinfo',
              horizontalalignment='center',
              verticalalignment='center',
              ) 
+    plt.show()
+    return
+        
     
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -3146,13 +3257,11 @@ def relativeBowlerCumulativeAvgWickets(filelist, names):
     ## Not run: )
     
     # Retrieve the file path of a data file installed with cricketr
-    kumble = clean( "kumble.csv")
-    warne = clean("warne.csv")
-    murali =clean("murali.csv")
+
     
-    frames <- list(kumble,warne,murali)
-    names <- c("Kumble","Warne","Murali")
-    relativeBowlerCumulativeAvgWickets(frames,names
+    frames = ["kumble.csv","warne.csv","murali.csv"]
+    names = ["Kumble","Warne","Murali"]
+    relativeBowlerCumulativeAvgEconRate(frames,names)
     '''
     
     df1=pd.DataFrame()
@@ -3176,6 +3285,7 @@ def relativeBowlerCumulativeAvgWickets(filelist, names):
              horizontalalignment='center',
              verticalalignment='center',
              ) 
+
     
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -3190,7 +3300,7 @@ from pylab import rcParams
 ###########################################################################################
 
 
-def relativeBowlingER(frames, names):
+def relativeBowlingER(filelist, names):
 
     df1=pd.DataFrame()
     # Set figure size
@@ -3209,8 +3319,10 @@ def relativeBowlingER(frames, names):
     df1.plot()    
     plt.xlabel('Innings')
     plt.ylabel('Economy Rate')
-    plt.title("Relative Economy Rate")
+    plt.title("Relative Bowling Economy Rate")
     plt.text(5, 3,'Data source-Courtesy:ESPN Cricinfo',
              horizontalalignment='center',
              verticalalignment='center',
              ) 
+    plt.show()
+    return
