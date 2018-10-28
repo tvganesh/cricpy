@@ -97,6 +97,7 @@ def batsman4s(file, name="A Hookshot"):
          verticalalignment='center',
          )
     plt.show()
+    plt.gcf().clear()
     return
 
    
@@ -158,6 +159,7 @@ def batsman6s(file, name="A Hookshot") :
          verticalalignment='center',
          )
     plt.show()
+    plt.gcf().clear()
     return
     
 import matplotlib.pyplot as plt
@@ -240,11 +242,12 @@ def batsmanAvgRunsGround(file, name="A Latecut"):
     
     ax=sns.barplot(x='Ground', y="Runs_mean", data=df1)
     plt.title(atitle)
-    plt.text(30, 180,'Data source-Courtesy:ESPN Cricinfo',
-             horizontalalignment='center',
-             verticalalignment='center',
+    plt.text(30, 180,'Data source-Courtesy:ESPN Cricinfo',\
+             horizontalalignment='center',\
+             verticalalignment='center',\
              )
     plt.show()
+    plt.gcf().clear()
     return
 
 import matplotlib.pyplot as plt
@@ -328,11 +331,12 @@ def batsmanAvgRunsOpposition(file, name="A Latecut"):
     ax=sns.barplot(x='Opposition', y="Runs_mean", data=df1)
     plt.axhline(y=50, color='b', linestyle=':')
     plt.title(atitle)
-    plt.text(5, 50, "Data source-Courtesy:ESPN Cricinfo",
-             horizontalalignment='center',
-             verticalalignment='center',
+    plt.text(5, 50, 'Data source-Courtesy:ESPN Cricinfo',\
+             horizontalalignment='center',\
+             verticalalignment='center',\
              )
     plt.show()
+    plt.gcf().clear()
     return
 
     
@@ -420,6 +424,7 @@ def batsmanContributionWonLost(file,name="A Hitter"):
          verticalalignment='center',
          )
     plt.show()
+    plt.gcf().clear()
     return
 
     
@@ -498,6 +503,7 @@ def batsmanCumulativeAverageRuns(file,name="A Leg Glance"):
                  verticalalignment='center',
                  )
     plt.show()
+    plt.gcf().clear()
     return
     
 import matplotlib.pyplot as plt
@@ -576,6 +582,7 @@ def batsmanCumulativeStrikeRate(file,name="A Leg Glance"):
                  verticalalignment='center',
                  ) 
     plt.show()
+    plt.gcf().clear()
     return
     
 
@@ -659,6 +666,7 @@ def batsmanDismissals(file, name="A Squarecut"):
     atitle = name +  "-Pie chart of dismissals"
     plt.suptitle(atitle, fontsize=16)
     plt.show()
+    plt.gcf().clear()
     return
     
 
@@ -758,6 +766,7 @@ def batsmanMeanStrikeRate(file, name="A Hitter"):
              verticalalignment='center',
              )
     plt.show()
+    plt.gcf().clear()
     return
 
 
@@ -850,6 +859,7 @@ def batsmanMovingAverage(file,name="A Squarecut") :
                  verticalalignment='center',
                  )
     plt.show()
+    plt.gcf().clear()
     return
 
 
@@ -936,6 +946,7 @@ def batsmanPerfBoxHist(file, name="A Hitter"):
              verticalalignment='center',
              )
     plt.show()
+    plt.gcf().clear()
     return    
     
 from statsmodels.tsa.arima_model import ARIMA
@@ -1027,6 +1038,7 @@ def batsmanPerfForecast(file, name="A Squarecut"):
     plt.show()
     residuals.plot(kind='kde')
     plt.show()
+    plt.gcf().clear()
     print(residuals.describe())
     
     
@@ -1111,6 +1123,7 @@ def batsmanPerfHomeAway(file,name="A Hitter"):
          verticalalignment='center',
          )
     plt.show()
+    plt.gcf().clear()
     return  
        
     
@@ -1193,6 +1206,7 @@ def batsmanRunsFreqPerf(file, name="A Hookshot"):
              verticalalignment='center',
              )
     plt.show()
+    plt.gcf().clear()
     return
     
 
@@ -1273,6 +1287,9 @@ def batsmanRunsLikelihood(file, name="A Squarecut") :
     # Get the cluster centroids
     centers = kmeans.cluster_centers_
     centers
+    
+  # Add a title
+    atitle= name + '-' + "Runs Likelihood"
     fig = plt.figure()
 
     ax = fig.add_subplot(111, projection='3d')
@@ -1299,6 +1316,7 @@ def batsmanRunsLikelihood(file, name="A Squarecut") :
     ax.set_zlabel('Runs');
     plt.title(atitle)
     plt.show()
+    plt.gcf().clear()
     return   
     
     
@@ -1478,6 +1496,7 @@ def batsmanRunsRanges(file, name= "A Hookshot") :
          verticalalignment='center',
          )
     plt.show()
+    plt.gcf().clear()
     return   
     
     
@@ -1551,7 +1570,7 @@ def battingPerf3d(file, name="A Hookshot") :
     # Clean the batsman file and create a complete data frame
     batsman = clean(file)
     # Make a 3 D plot and fit a regression plane
-    atitle = name +  "- Runs  vs BF & Mins"
+    atitle = name +  "- Runs vs BallsFaced & Minutes"
     
     df2=batsman[['BF','Mins','Runs']]
     df2['BF']=pd.to_numeric(df2['BF'])
@@ -1580,6 +1599,7 @@ def battingPerf3d(file, name="A Hookshot") :
     plt3d.set_zlabel('Runs');
     plt.title(atitle)
     plt.show()
+    plt.gcf().clear()
     return
     
     
@@ -1672,6 +1692,7 @@ def bowlerAvgWktsGround(file, name="A Chinaman"):
              verticalalignment='center',
              )
     plt.show()
+    plt.gcf().clear()
     return
     
 
@@ -1763,6 +1784,7 @@ def bowlerAvgWktsOpposition(file, name="A Chinaman"):
              verticalalignment='center',
              )
     plt.show()
+    plt.gcf().clear()
     return
 
 import matplotlib.pyplot as plt
@@ -1847,6 +1869,7 @@ def bowlerContributionWonLost(file,name="A Doosra"):
          verticalalignment='center',
          )
     plt.show()
+    plt.gcf().clear()
     return
     
     
@@ -1925,6 +1948,7 @@ def bowlerCumulativeAvgEconRate(file,name="A Googly"):
                  )  
     
     plt.show()
+    plt.gcf().clear()
     return    
 
 import matplotlib.pyplot as plt
@@ -2003,6 +2027,7 @@ def bowlerCumulativeAvgWickets(file,name="A Googly"):
                  verticalalignment='center',
                  )  
     plt.show()
+    plt.gcf().clear()
     return  
     
 
@@ -2086,6 +2111,7 @@ def bowlerEconRate(file, name="A Bowler") :
              verticalalignment='center',
              )
     plt.show()
+    plt.gcf().clear()
     return 
     
 
@@ -2178,6 +2204,7 @@ def bowlerMovingAverage(file,name="A Doosra") :
                  )
 
     plt.show()
+    plt.gcf().clear()
     return 
 
 
@@ -2269,6 +2296,7 @@ def bowlerPerfForecast(file, name="A Googly"):
     atitle=name+"-ARIMA plot"
     plt.title(atitle)
     plt.show()
+    plt.gcf().clear()
     print(residuals.describe())
     
 
@@ -2358,6 +2386,7 @@ def bowlerPerfHomeAway(file,name="A Googly") :
          verticalalignment='center',
          )
     plt.show()
+    plt.gcf().clear()
     return 
        
 import pandas as pd
@@ -2439,6 +2468,7 @@ def bowlerWktsFreqPercent(file, name="A Bowler"):
              verticalalignment='center',
              )
     plt.show()
+    plt.gcf().clear()
     return
     
 
@@ -2507,6 +2537,9 @@ def bowlerWktsRunsPlot(file, name="A Googly"):
     ax = sns.boxplot(x='Wkts', y='Runs', data=bowler)
     plt.title(atitle)
     plt.xlabel('Wickets')
+    plt.show()
+    plt.gcf().clear()
+    return
     
 import pandas as pd
 ##########################################################################################
@@ -2655,7 +2688,7 @@ def cleanBowlerData(file):
     df = df[c]
     
     # Get all complete cases
-    bowlerComplete = df.dropna()
+    bowlerComplete = df.dropna(axis=1)
     # Normalize overs which had 8 balls per over to the number of overs if there 8 balls per over
     if bowlerComplete.columns[2] =="BPO":
         bowlerComplete['Overs'] = pd.to_numeric(bowlerComplete['Overs']) *8/6
@@ -2767,7 +2800,7 @@ def getPlayerData(profile,opposition="",host="",dir="./data",file="player001.csv
     
     # Set the home or away
     str1=str2=""
-    print(len(homeOrAway))
+    #print(len(homeOrAway))
     for i  in homeOrAway:
         if i == 1:
              str1 = str1 + "home_or_away=1;"
@@ -2792,7 +2825,7 @@ def getPlayerData(profile,opposition="",host="",dir="./data",file="player001.csv
     
     # Create composite URL
     url = suburl1 + player + suburl2 + hostCountry + theOpposition + HA + result + suburl3 + t + suburl4
-    print(url)
+    #print(url)
     # Read the data from ESPN Cricinfo
     dfList= pd.read_html(url)
     
@@ -2824,9 +2857,10 @@ def getPlayerData(profile,opposition="",host="",dir="./data",file="player001.csv
     
     if not os.path.exists(dir):
         os.mkdir(dir)
-        print("Directory " , dir ,  " Created ")
+        #print("Directory " , dir ,  " Created ")
     else:    
-        print("Directory " , dir ,  " already exists, writing to this folder")
+        pass
+        #print("Directory " , dir ,  " already exists, writing to this folder")
     
     # Create path
     path= os.path.join(dir,file)
@@ -2943,9 +2977,10 @@ def getPlayerDataSp(profileNo,tdir="./data",tfile="player001.csv",ttype="batting
       
     if not os.path.exists(tdir):
         os.mkdir(dir)
-        print("Directory " , dir ,  " Created ")
+        #print("Directory " , dir ,  " Created ")
     else:    
-        print("Directory " , dir ,  " already exists, writing to this folder")
+        pass
+        #print("Directory " , dir ,  " already exists, writing to this folder")
     
     # Create path
     path= os.path.join(tdir,tfile)
@@ -3037,6 +3072,7 @@ def relativeBatsmanCumulativeAvgRuns(filelist, names):
              verticalalignment='center',
              ) 
     plt.show()
+    plt.gcf().clear()
     return
         
 import pandas as pd
@@ -3117,6 +3153,7 @@ def relativeBatsmanCumulativeStrikeRate (filelist, names):
              verticalalignment='center',
              ) 
     plt.show()
+    plt.gcf().clear()
     return 
 
 import pandas as pd
@@ -3183,8 +3220,8 @@ def relativeBowlerCumulativeAvgEconRate(filelist, names):
     rcParams['figure.figsize'] = 10,6  
     
     for idx,file in enumerate(filelist):
-        print(idx)
-        print(file)
+        #print(idx)
+        #print(file)
         bowler = cleanBowlerData(file)  
         economyRate=pd.to_numeric(bowler['Econ'])
         df1[names[idx]]= economyRate.cumsum()/pd.Series(np.arange(1, len(economyRate)+1), economyRate.index)
@@ -3199,6 +3236,7 @@ def relativeBowlerCumulativeAvgEconRate(filelist, names):
              verticalalignment='center',
              ) 
     plt.show()
+    plt.gcf().clear()
     return
         
     
@@ -3270,8 +3308,6 @@ def relativeBowlerCumulativeAvgWickets(filelist, names):
     rcParams['figure.figsize'] = 10,6  
     
     for idx,file in enumerate(filelist):
-        print(idx)
-        print(file)
         bowler = cleanBowlerData(file)  
         wkts=pd.to_numeric(bowler['Wkts']) 
         df1[names[idx]]= wkts.cumsum()/pd.Series(np.arange(1, len(wkts)+1), wkts.index)
@@ -3285,6 +3321,9 @@ def relativeBowlerCumulativeAvgWickets(filelist, names):
              horizontalalignment='center',
              verticalalignment='center',
              ) 
+    plt.show()
+    plt.gcf().clear()
+    return
 
     
 import pandas as pd
@@ -3307,8 +3346,6 @@ def relativeBowlingER(filelist, names):
     rcParams['figure.figsize'] = 10,6  
     
     for idx,file in enumerate(filelist):
-        print(idx)
-        print(file)
         bowler = cleanBowlerData(file)  
         bowler['Wkts']=pd.to_numeric(bowler['Wkts']) 
         bowler['Econ']=pd.to_numeric(bowler['Econ']) 
@@ -3317,12 +3354,13 @@ def relativeBowlingER(filelist, names):
         
           
     df1.plot()    
-    plt.xlabel('Innings')
+    plt.xlabel('Wickets')
     plt.ylabel('Economy Rate')
-    plt.title("Relative Bowling Economy Rate")
+    plt.title("Relative Bowling Economy Rate vs Wickets")
     plt.text(5, 3,'Data source-Courtesy:ESPN Cricinfo',
              horizontalalignment='center',
              verticalalignment='center',
              ) 
     plt.show()
+    plt.gcf().clear()
     return

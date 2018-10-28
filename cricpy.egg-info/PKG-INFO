@@ -1,8 +1,8 @@
 Metadata-Version: 2.1
 Name: cricpy
-Version: 0.0.1
+Version: 0.0.7
 Summary: Analyze Cricketers Based on ESPN Cricinfo Statsguru
-Home-page: https://github.com/tvganesh/pycricketr
+Home-page: https://github.com/tvganesh/cricpy
 Author: Tinniam V Ganesh
 Author-email: tvganesh.85@gmail.com
 License: UNKNOWN

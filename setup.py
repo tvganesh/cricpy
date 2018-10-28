@@ -5,13 +5,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="cricpy",
-    version="0.0.1",
+    version="0.0.7",
     author="Tinniam V Ganesh",
     author_email="tvganesh.85@gmail.com",
     description="Analyze Cricketers Based on ESPN Cricinfo Statsguru",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/tvganesh/pycricketr",
+    url="https://github.com/tvganesh/cricpy",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
