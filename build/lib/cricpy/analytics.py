@@ -52,6 +52,7 @@ def batsman4s(file, name="A Hookshot"):
     # Get or use the <batsman>.csv obtained with getPlayerData()
     tendulkar  = getPlayerData(35320,dir="../",file="tendulkar.csv",type="batting")
     homeOrAway=[1,2],result=[1,2,4]
+    batsman4s("tendulkar.csv", "Sachin Tendulkar")
     
     '''   
     # Clean the batsman file and create a complete data frame
@@ -131,7 +132,7 @@ def batsman6s(file, name="A Hookshot") :
     Examples
     # Get or use the <batsman>.csv obtained with getPlayerData()
     # tendulkar = getPlayerData(35320,file="tendulkar.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
-
+    # batsman6s("tendulkar.csv","Sachin Tendulkar")
 
     '''
     x6s = []
@@ -218,7 +219,7 @@ def batsmanAvgRunsGround(file, name="A Latecut"):
     
     # Get or use the <batsman>.csv obtained with getPlayerData()
     ##tendulkar  = getPlayerData(35320,file="tendulkar.csv",type="batting", homeOrAway=[1,2],result=[1,2,4])
-        
+    batsmanAvgRunsGround("tendulkar.csv","Sachin Tendulkar")  
     
     '''
     
@@ -307,7 +308,7 @@ def batsmanAvgRunsOpposition(file, name="A Latecut"):
     
     # Get or use the <batsman>.csv obtained with getPlayerData()
     #tendulkar = getPlayerData(35320,file="tendulkar.csv",type="batting", homeOrAway=[1,2],result=[1,2,4])
-
+    batsmanAvgRunsOpposition("tendulkar.csv","Sachin Tendulkar")
 '''
     batsman = clean(file)    
     
@@ -399,7 +400,7 @@ def batsmanContributionWonLost(file,name="A Hitter"):
     # Get or use the <batsman>.csv obtained with getPlayerData()
     #tendulkarsp = getPlayerDataSp(35320,".","tendulkarsp.csv","batting")
     
-    batsmanContributionWonLost(tendulkarsp,"Sachin Tendulkar")
+    batsmanContributionWonLost("tendulkarsp.csv","Sachin Tendulkar")
     '''
     playersp = clean(file)
     
@@ -478,9 +479,7 @@ def batsmanCumulativeAverageRuns(file,name="A Leg Glance"):
     
     Examples
     
-    ## Not run: 
-    # retrieve the file path of a data file installed with cricketr
-    batsmanCumulativeAverageRuns(pathToFile, "Sachin Tendulkar")
+    batsmanCumulativeAverageRuns("tendulkar.csv", "Sachin Tendulkar")
     '''
 
     batsman= clean(file) 
@@ -557,7 +556,7 @@ def batsmanCumulativeStrikeRate(file,name="A Leg Glance"):
     Examples
     
     ## Not run: 
-    batsmanCumulativeStrikeRate(pathToFile, "Sachin Tendulkar")
+    batsmanCumulativeStrikeRate("tendulkar.csv", "Sachin Tendulkar")
     '''
 
     batsman= clean(file) 
@@ -644,7 +643,7 @@ def batsmanDismissals(file, name="A Squarecut"):
     # Get or use the <batsman>.csv obtained with getPlayerData()
     #tendulkar= getPlayerData(35320,file="tendulkar.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
     
-    batsmanDismissals(pathToFile,"Sachin Tendulkar")
+    batsmanDismissals("tendulkar.csv","Sachin Tendulkar")
     '''
 
     batsman = clean(file)
@@ -728,7 +727,7 @@ def batsmanMeanStrikeRate(file, name="A Hitter"):
     
     # Get or use the <batsman>.csv obtained with getPlayerData()
     #tendulkar  <- getPlayerData(35320,file="tendulkar.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
-    batsmanMeanStrikeRate(pathToFile,"Sachin Tendulkar")
+    batsmanMeanStrikeRate("tendulkar.csv","Sachin Tendulkar")
     '''
     batsman = clean(file)
     
@@ -833,7 +832,7 @@ def batsmanMovingAverage(file,name="A Squarecut") :
     # Get or use the <batsman>.csv obtained with getPlayerData()
     #tendulkar  <- getPlayerData(35320,file="tendulkar.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
     
-    batsmanMovingAverage(pathToFile,"Sachin Tendulkar")
+    batsmanMovingAverage("tendulkar.csv","Sachin Tendulkar")
     '''
     # Compute the moving average of the time series
     batsman = clean(file)
@@ -922,7 +921,7 @@ def batsmanPerfBoxHist(file, name="A Hitter"):
     # Get or use the <batsman>.csv obtained with getPlayerData()
     #tendulkar = getPlayerData(35320,file="tendulkar.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
     
-    batsman4s(pathToFile,"Sachin Tendulkar")
+    batsman4s("tendulkar.csv","Sachin Tendulkar")
     '''
     batsman = clean(file)
     
@@ -1009,11 +1008,7 @@ def batsmanPerfForecast(file, name="A Squarecut"):
     
     # Get or use the <batsman>.csv obtained with getPlayerData()
     #tendulkar = getPlayerData(35320,file="tendulkar.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
-    batsmanPerfForecast(pathToFile,"Sachin Tendulkar")
-    
-    # Note: The above example uses the file tendulkar.csv from the /data directory. However
-    # you can use any directory as long as the data file exists in that directory.
-    # The general format is pkg-function(pathToFile,par1,...)
+    batsmanPerfForecast("tendulkar.csv","Sachin Tendulkar")
     
     '''
     
@@ -1095,7 +1090,7 @@ def batsmanPerfHomeAway(file,name="A Hitter"):
     # Get or use the <batsman>.csv obtained with getPlayerData()
     #tendulkarSp <-getPlayerDataSp(35320,".","tendulkarsp.csv","batting")
     
-    batsmanPerfHomeAway(pathToFile,"Sachin Tendulkar")
+    batsmanPerfHomeAway("tendulkarsp.csv","Sachin Tendulkar")
     
     '''
     
@@ -1186,7 +1181,7 @@ def batsmanRunsFreqPerf(file, name="A Hookshot"):
     # Get or use the <batsman>.csv obtained with getPlayerData()
     #tendulkar <- getPlayerData(35320,file="tendulkar.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
     
-    batsmanRunsFreqPerf(pathToFile,"Sachin Tendulkar")
+    batsmanRunsFreqPerf("tendulkar.csv","Sachin Tendulkar")
     '''     
     df = clean(file)
 
@@ -1269,7 +1264,7 @@ def batsmanRunsLikelihood(file, name="A Squarecut") :
     # Get or use the <batsman>.csv obtained with getPlayerData()
     # tendulkar= getPlayerData(35320,file="tendulkar.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
     
-    batsmanRunsLikelihood(pathToFile,"Sachin Tendulkar")
+    batsmanRunsLikelihood("tendulkar.csv","Sachin Tendulkar")
     ''' 
     batsman =clean(file)
     
@@ -1384,19 +1379,15 @@ def batsmanRunsPredict(file, newDF, name="A Coverdrive"):
     BF= 30
     Mins= 20
     
-    # retrieve the file path of a data file installed with cricketr
-    pathToFile <- system.file("data", "tendulkar.csv", package = "cricketr")
-    batsmanRunsPredict(pathToFile,"Sachin Tendulkar",newdataframe=data.frame(BF,Mins))
-    
-    #or give a data frame
     BF = np.linspace( 10, 400,15)
     Mins =  np.linspace(30,220,15)
     newDF= pd.DataFrame({'BF':BF,'Mins':Mins}
-    #values <- batsmanRunsPredict("../cricketr/data/tendulkar.csv","Sachin Tendulkar",
     
-    #print(values)
-    '''
+    # retrieve the file path of a data file installed with cricketr
+    pathToFile <- system.file("data", "tendulkar.csv", package = "cricketr")
+    batsmanRunsPredict("tendulkar.csv",newDF, "Sachin Tendulkar")
 
+    '''
     batsman = clean(file)
     df=batsman[['BF','Mins','Runs']]
     df['BF']=pd.to_numeric(df['BF'])
@@ -1408,8 +1399,6 @@ def batsmanRunsPredict(file, newDF, name="A Coverdrive"):
 
     newDF['Runs']=linreg.predict(newDF)
     return(newDF)
-    
-
 
 import matplotlib.pyplot as plt
 from pylab import rcParams
@@ -1499,7 +1488,6 @@ def batsmanRunsRanges(file, name= "A Hookshot") :
     plt.gcf().clear()
     return   
     
-    
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D  
 from sklearn.linear_model import LinearRegression
@@ -1562,7 +1550,7 @@ def battingPerf3d(file, name="A Hookshot") :
     #  tendulkar<- getPlayerData(35320,file="tendulkar.csv",type="batting", 
     #homeOrAway=[1,2],result=[1,2,4])
     
-    battingPerf3d(pathToFile,"Sachin Tendulkar")
+    battingPerf3d("tendulkar.csv","Sachin Tendulkar")
     '''
     # Set figure size
     rcParams['figure.figsize'] = 10,6  
@@ -1661,7 +1649,7 @@ def bowlerAvgWktsGround(file, name="A Chinaman"):
     # Get or use the <bowler>.csv obtained with getPlayerData()
     # a <- getPlayerData(30176,file="kumble.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
     
-    bowlerAvgWktsGround(pathToFile,"Anil Kumble")
+    bowlerAvgWktsGround("kumble.csv","Anil Kumble")
     '''
 
     bowler = cleanBowlerData(file)
@@ -1753,9 +1741,9 @@ def bowlerAvgWktsOpposition(file, name="A Chinaman"):
     Examples
     
     # Get or use the <bowler>.csv obtained with getPlayerData()
-    # a <- getPlayerData(30176,file="kumble.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
+    # kumble <- getPlayerData(30176,file="kumble.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
 
-    bowlerAvgWktsOpposition(pathToFile,"Anil Kumble")
+    bowlerAvgWktsOpposition("kumble.csv","Anil Kumble")
     '''
     bowler = cleanBowlerData(file)  
     
@@ -1843,7 +1831,7 @@ def bowlerContributionWonLost(file,name="A Doosra"):
     # Get or use the <bowler>.csv obtained with getPlayerDataSp()
     #kumbleSp <-getPlayerDataSp(30176,".","kumblesp.csv","bowling")
 
-    bowlerContributionWonLost(pathToFile,"Anil Kumble")
+    bowlerContributionWonLost("kumblesp.csv","Anil Kumble")
     '''   
     playersp = cleanBowlerData(file)
     
@@ -1871,8 +1859,6 @@ def bowlerContributionWonLost(file,name="A Doosra"):
     plt.show()
     plt.gcf().clear()
     return
-    
-    
 
 import matplotlib.pyplot as plt
 from pylab import rcParams
@@ -1924,7 +1910,7 @@ def bowlerCumulativeAvgEconRate(file,name="A Googly"):
     
     Examples
     
-    bowlerCumulativeAvgEconRate(pathToFile,"Anil Kumble")
+    bowlerCumulativeAvgEconRate("kumble.csv","Anil Kumble")
     '''
     bowler=cleanBowlerData(file) 
     
@@ -2001,9 +1987,7 @@ def bowlerCumulativeAvgWickets(file,name="A Googly"):
     
     Examples
     
-    bowlerCumulativeAvgWickets(pathToFile,"Anil Kumble")
-    
-    ## End(Not run)
+    bowlerCumulativeAvgWickets("kumble.csv","Anil Kumble")
     
     '''
     bowler=cleanBowlerData(file) 
@@ -2088,7 +2072,7 @@ def bowlerEconRate(file, name="A Bowler") :
     # kumble <- getPlayerData(30176,dir=".", file="kumble.csv",type="batting", 
     # homeOrAway=[1,2],result=[1,2,4])
     
-    bowlerEconRate(pathToFile,"Anil Kumble")
+    bowlerEconRate("kumble.csv","Anil Kumble")
     '''
 
     bowler = cleanBowlerData(file)  
@@ -2178,9 +2162,9 @@ def bowlerMovingAverage(file,name="A Doosra") :
     Examples
     
     # Get or use the <bowler>.csv obtained with getPlayerData()
-    # a <- getPlayerData(30176,file="kumble.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
+    # kumble = getPlayerData(30176,file="kumble.csv",type="bowling", homeOrAway=[1,2],result=[1,2,4])
     
-    bowlerMovingAverage(pathToFile,"Anil Kumble")
+    bowlerMovingAverage("kumble.csv","Anil Kumble")
     '''
     bowler = cleanBowlerData(file)  
     
@@ -2265,9 +2249,8 @@ def bowlerPerfForecast(file, name="A Googly"):
     Examples
     
     # Get or use the <bowler>.csv obtained with getPlayerData()
-    # a <- getPlayerData(30176,file="kumble.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
-    
-    bowlerPerfForecast(pathToFile,"Anil Kumble")
+    # kumble = getPlayerData(30176,file="kumble.csv",type="bowling", homeOrAway=[1,2],result=[1,2,4])    
+    bowlerPerfForecast("kumble.csv","Anil Kumble")
     '''
 
     bowler= cleanBowlerData(file) 
@@ -2356,9 +2339,9 @@ def bowlerPerfHomeAway(file,name="A Googly") :
     Examples
     
     # Get or use the <bowler>.csv obtained with getPlayerDataSp()
-    #kumbleSp <-getPlayerDataSp(30176,".","kumblesp.csv","bowling")
+    #kumblesp <-getPlayerDataSp(30176,".","kumblesp.csv","bowling")
     
-    bowlerPerfHomeAway(path,"Anil Kumble")
+    bowlerPerfHomeAway(kumblesp.csv,"Anil Kumble")
     '''
     
     playersp = cleanBowlerData(file)
@@ -2445,9 +2428,9 @@ def bowlerWktsFreqPercent(file, name="A Bowler"):
     Examples
     
     # Get or use the <bowler>.csv obtained with getPlayerData()
-    # a <- getPlayerData(30176,file="kumble.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
+    # a =getPlayerData(30176,file="kumble.csv",type="bowling", homeOrAway=[1,2],result=[1,2,4])
     
-    bowlerWktsFreqPercent(pathToFile,"Anil Kumble")
+    bowlerWktsFreqPercent("kumble.csv","Anil Kumble")
     '''
     
     bowler = cleanBowlerData(file)
@@ -2525,9 +2508,9 @@ def bowlerWktsRunsPlot(file, name="A Googly"):
     Examples
     
     # Get or use the <bowler>.csv obtained with getPlayerData()
-    # a <- getPlayerData(30176,file="kumble.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
+    # kumble =getPlayerData(30176,file="kumble.csv",type="bowling", homeOrAway=[1,2],result=[1,2,4])
     
-    bowlerWktsRunsPlot(pathToFile,"Anil Kumble")
+    bowlerWktsRunsPlot("kumble.csv","Anil Kumble")
     '''
     bowler = cleanBowlerData(file)
     # Set figure size
@@ -2591,7 +2574,7 @@ def clean(batsmanCSV):
     Examples
     
     # Get or use the <batsman>.csv obtained with getPlayerData()
-    #tendulkar <- getPlayerData(35320,file="tendulkar.csv",type="batting", homeOrAway=c(1,2),result=c(1,2,4))
+    #tendulkar = getPlayerData(35320,file="tendulkar.csv",type="batting", homeOrAway=[1,2],result=[1,2,4])
     
     clean(pathToFile)
     '''
@@ -2732,9 +2715,9 @@ def getPlayerData(profile,opposition="",host="",dir="./data",file="player001.csv
     type	
     type of data required. This can be "batting" or "bowling"
     homeOrAway	
-    This is vector with either 1,2 or both. 1 is for home 2 is for away
+    This is a list with either 1,2 or both. 1 is for home 2 is for away
     result	
-    This is a vector that can take values 1,2,4. 1 - won match 2- lost match 4- draw
+    This is a list that can take values 1,2,4. 1 - won match 2- lost match 4- draw
     Details
     
     More details can be found in my short video tutorial in Youtube https://www.youtube.com/watch?v=q9uMPFVsXsI
@@ -2764,19 +2747,19 @@ def getPlayerData(profile,opposition="",host="",dir="./data",file="player001.csv
     
     ## Not run: 
     # Both home and away. Result = won,lost and drawn
-    tendulkar <-getPlayerData(35320,dir="../cricketr/data", file="tendulkar1.csv",
-    type="batting", homeOrAway=c(1,2),result=c(1,2,4))
+    tendulkar = getPlayerData(35320,dir=".", file="tendulkar1.csv",
+    type="batting", homeOrAway=[1,2],result=[1,2,4])
     
     # Only away. Get data only for won and lost innings
-    tendulkar <-getPlayerData(35320,dir="../cricketr/data", file="tendulkar2.csv",
-    type="batting",homeOrAway=c(2),result=c(1,2))
+    tendulkar = getPlayerData(35320,dir=".", file="tendulkar2.csv",
+    type="batting",homeOrAway=[2],result=[1,2])
     
     # Get bowling data and store in file for future
-    kumble <- getPlayerData(30176,dir="../cricketr/data",file="kumble1.csv",
-    type="bowling",homeOrAway=c(1),result=c(1,2))
+    kumble = getPlayerData(30176,dir=".",file="kumble1.csv",
+    type="bowling",homeOrAway=[1],result=[1,2])
     
     #Get the Tendulkar's Performance against Australia in Australia
-    tendulkar <-getPlayerData(35320, opposition = 2,host=2,dir=".", 
+    tendulkar = getPlayerData(35320, opposition = 2,host=2,dir=".", 
     file="tendulkarVsAusInAus.csv",type="batting") 
     
     '''
@@ -2932,10 +2915,10 @@ def getPlayerDataSp(profileNo,tdir="./data",tfile="player001.csv",ttype="batting
     
     ## Not run: 
     # Only away. Get data only for won and lost innings
-    tendulkar <-getPlayerDataSp(35320,tdir="../cricketr/data", tfile="tendulkarsp.csv",ttype="batting")
+    tendulkar = getPlayerDataSp(35320,tdir="..", tfile="tendulkarsp.csv",ttype="batting")
     
     # Get bowling data and store in file for future
-    kumble <- getPlayerDataSp(30176,tdir="../cricketr/data",tfile="kumblesp.csv",ttype="bowling")
+    kumble = getPlayerDataSp(30176,tdir="..",tfile="kumblesp.csv",ttype="bowling")
     
     ## End(Not run)
     '''
@@ -3049,7 +3032,6 @@ def relativeBatsmanCumulativeAvgRuns(filelist, names):
     names = ["Tendulkar","Dravid","Ganguly"]
     relativeBatsmanCumulativeAvgRuns(batsmen,names)
 
-    
     '''
     df1=pd.DataFrame()
     
@@ -3060,8 +3042,6 @@ def relativeBatsmanCumulativeAvgRuns(filelist, names):
         df=clean(file)
         runs=pd.to_numeric(df['Runs'])
         df1[names[idx]] = runs.cumsum()/pd.Series(np.arange(1, len(runs)+1), runs.index)
-          
-
 
     df1.plot()
     plt.xlabel('Innings')
@@ -3130,7 +3110,6 @@ def relativeBatsmanCumulativeStrikeRate (filelist, names):
     names = ["Tendulkar","Dravid","Ganguly"]
     relativeBatsmanCumulativeAvgRuns(batsmen,names)
 
-    
     '''
     df1=pd.DataFrame()
     
@@ -3142,8 +3121,6 @@ def relativeBatsmanCumulativeStrikeRate (filelist, names):
         strikeRate=pd.to_numeric(df['SR'])
         df1[names[idx]] = strikeRate.cumsum()/pd.Series(np.arange(1, len(strikeRate)+1), strikeRate.index)
           
-
-
     df1.plot()
     plt.xlabel('Innings')
     plt.ylabel('Cumulative Strike Rate')
