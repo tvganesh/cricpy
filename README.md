@@ -2,6 +2,12 @@
 
 [![PyPI](https://img.shields.io/pypi/v/cricpy.svg)](https://pypi.org/project/cricpy/) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/cricpy.svg)](https://pypi.org/project/cricpy/) [![PyPI - Wheel](https://img.shields.io/pypi/wheel/cricpy.svg)](https://pypi.org/project/cricpy/)
 
+#### Package downloads from the Pypi</b>
+
+[![Downloads](https://pepy.tech/badge/cricpy)](https://pepy.tech/project/cricpy)
+
+<hr>
+
 ## Description 
 
 Tools for analyzing performances of cricketers based on stats in ESPN Cricinfo Statsguru. The toolset can  be used for analysis of Tests matches of both batsmen and bowlers.
