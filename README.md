@@ -6,6 +6,9 @@
 
 [![Downloads](https://pepy.tech/badge/cricpy)](https://pepy.tech/project/cricpy)
 
+[![Downloads](https://pepy.tech/badge/cricpy/month)](https://pepy.tech/project/cricpy)
+
+[![Downloads](https://pepy.tech/badge/cricpy/week)](https://pepy.tech/project/cricpy)
 <hr>
 
 ## Description 
