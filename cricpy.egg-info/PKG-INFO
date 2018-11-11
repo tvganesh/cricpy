@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: cricpy
-Version: 0.0.9
+Version: 0.0.10
 Summary: Analyze Cricketers Based on ESPN Cricinfo Statsguru
 Home-page: https://github.com/tvganesh/cricpy
 Author: Tinniam V Ganesh
@@ -9,6 +9,15 @@ License: UNKNOWN
 Description: # Cricpy
         
         [![PyPI](https://img.shields.io/pypi/v/cricpy.svg)](https://pypi.org/project/cricpy/) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/cricpy.svg)](https://pypi.org/project/cricpy/) [![PyPI - Wheel](https://img.shields.io/pypi/wheel/cricpy.svg)](https://pypi.org/project/cricpy/)
+        
+        #### Package downloads from the Pypi</b>
+        
+        [![Downloads](https://pepy.tech/badge/cricpy)](https://pepy.tech/project/cricpy)
+        
+        [![Downloads](https://pepy.tech/badge/cricpy/month)](https://pepy.tech/project/cricpy)
+        
+        [![Downloads](https://pepy.tech/badge/cricpy/week)](https://pepy.tech/project/cricpy)
+        <hr>
         
         ## Description 
         

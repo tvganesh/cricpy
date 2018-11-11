@@ -57,13 +57,18 @@ def batsman4s(file, name="A Hookshot"):
     '''   
     # Clean the batsman file and create a complete data frame
     df = clean(file)
+    df['Runs'] = pd.to_numeric(df['Runs'])
+    df['4s'] = pd.to_numeric(df['4s'])
+    
+    df1 = df[['Runs','4s']].sort_values(by=['Runs'])
+
     
     # Set figure size
     rcParams['figure.figsize'] = 10,6
     
     # Get numnber of 4s and runs scored
-    x4s = pd.to_numeric(df['4s'])
-    runs = pd.to_numeric(df['Runs'])
+    runs = pd.to_numeric(df1['Runs'])
+    x4s = pd.to_numeric(df1['4s'])
      
     atitle = name + "-" + "Runs scored vs No of 4s" 
     
@@ -237,7 +242,7 @@ def batsmanAvgRunsGround(file, name="A Latecut"):
     df1=df.reset_index(inplace=False)
     
     atitle = name + "'s Average Runs at Ground"
-    plt.xticks(rotation='vertical')
+    plt.xticks(rotation="vertical",fontsize=8)
     plt.axhline(y=50, color='b', linestyle=':')
     plt.axhline(y=100, color='r', linestyle=':')
     
@@ -327,7 +332,7 @@ def batsmanAvgRunsOpposition(file, name="A Latecut"):
     df1=df.reset_index(inplace=False)
     
     atitle = name + "'s Average Runs vs Opposition"
-    plt.xticks(rotation='vertical')
+    plt.xticks(rotation="vertical",fontsize=8)
 
     ax=sns.barplot(x='Opposition', y="Runs_mean", data=df1)
     plt.axhline(y=50, color='b', linestyle=':')
@@ -1670,7 +1675,7 @@ def bowlerAvgWktsGround(file, name="A Chinaman"):
     
     atitle = name + "-" + "'s Average Wickets at Ground"
     
-    plt.xticks(rotation='vertical')
+    plt.xticks(rotation="vertical",fontsize=8)
     plt.axhline(y=4, color='r', linestyle=':')
     plt.title(atitle)
     ax=sns.barplot(x='Ground', y="Wkts_mean", data=df1)
@@ -1763,7 +1768,7 @@ def bowlerAvgWktsOpposition(file, name="A Chinaman"):
     
     atitle = name + "-" + "'s Average Wickets vs Opposition"
     
-    plt.xticks(rotation='vertical')
+    plt.xticks(rotation="vertical",fontsize=8)
     plt.axhline(y=3, color='r', linestyle=':')
     ax=sns.barplot(x='Opposition', y="Wkts_mean", data=df1)
     plt.title(atitle)
@@ -2976,6 +2981,187 @@ def getPlayerDataSp(profileNo,tdir="./data",tfile="player001.csv",ttype="batting
     return(df)
     
 import pandas as pd
+import os
+##########################################################################################
+# Designed and developed by Tinniam V Ganesh
+# Date : 7 Oct 2018
+# Function : getPlayerDataOD
+# This function gets the One Day data of batsman/bowler and returns the data frame. This data frame can
+# stored for use in other functions
+##########################################################################################
+def getPlayerDataOD(profile,opposition="",host="",dir="./data",file="player001.csv",type="batting",
+                         homeOrAway=[1,2,3],result=[1,2,3,5],create=True) :
+    '''
+    Get the One day player data from ESPN Cricinfo based on specific inputs and store in a file in a given directory
+    
+    Description
+    
+    Get the player data given the profile of the batsman. The allowed inputs are home,away or both and won,lost or draw of matches. The data is stored in a <player>.csv file in a directory specified. This function also returns a data frame of the player
+    
+    Usage
+    
+    getPlayerDataOD(profile, opposition="",host="",dir = "../", file = "player001.csv", 
+    type = "batting", homeOrAway = c(1, 2, 3), result = c(1, 2, 3,5))
+    Arguments
+    
+    profile	
+    This is the profile number of the player to get data. This can be obtained from http://www.espncricinfo.com/ci/content/player/index.html. Type the name of the player and click search. This will display the details of the player. Make a note of the profile ID. For e.g For Virender Sehwag this turns out to be http://www.espncricinfo.com/india/content/player/35263.html. Hence the profile for Sehwag is 35263
+    opposition	    The numerical value of the opposition country e.g.Australia,India, England etc. The values are Australia:2,Bangladesh:25,Bermuda:12, England:1,Hong Kong:19,India:6,Ireland:29, Netherlands:15,New Zealand:5,Pakistan:7,Scotland:30,South Africa:3,Sri Lanka:8,United Arab Emirates:27, West Indies:4, Zimbabwe:9; Africa XI:405 Note: If no value is entered for opposition then all teams are considered
+    host	    The numerical value of the host country e.g.Australia,India, England etc. The values are Australia:2,Bangladesh:25,England:1,India:6,Ireland:29,Malaysia:16,New Zealand:5,Pakistan:7, Scotland:30,South Africa:3,Sri Lanka:8,United Arab Emirates:27,West Indies:4, Zimbabwe:9 Note: If no value is entered for host then all host countries are considered
+    dir	
+    Name of the directory to store the player data into. If not specified the data is stored in a default directory "../data". Default="../data"
+    file	
+    Name of the file to store the data into for e.g. tendulkar.csv. This can be used for subsequent functions. Default="player001.csv"
+    type	
+    type of data required. This can be "batting" or "bowling"
+    homeOrAway	
+    This is vector with either or all 1,2, 3. 1 is for home 2 is for away, 3 is for neutral venue
+    result	
+    This is a vector that can take values 1,2,3,5. 1 - won match 2- lost match 3-tied 5- no result
+    Details
+    
+    More details can be found in my short video tutorial in Youtube https://www.youtube.com/watch?v=q9uMPFVsXsI
+    
+    Value
+    
+    Returns the player's dataframe
+    
+    Note
+    
+    Maintainer: Tinniam V Ganesh <tvganesh.85@gmail.com>
+    
+    Author(s)
+    
+    Tinniam V Ganesh
+    
+    References
+    
+    http://www.espncricinfo.com/ci/content/stats/index.html
+    https://gigadom.wordpress.com/
+    
+    See Also
+    
+    getPlayerDataSp getPlayerData
+    
+    Examples
+    
+    
+    ## Not run: 
+    # Both home and away. Result = won,lost and drawn
+    sehwag =getPlayerDataOD(35263,dir="../cricketr/data", file="sehwag1.csv",
+    type="batting", homeOrAway=[1,2],result=[1,2,3,4])
+    
+    # Only away. Get data only for won and lost innings
+    sehwag = getPlayerDataOD(35263,dir="../cricketr/data", file="sehwag2.csv",
+    type="batting",homeOrAway=[2],result=[1,2])
+    
+    # Get bowling data and store in file for future
+    malinga = getPlayerData(49758,dir="../cricketr/data",file="malinga1.csv",
+    type="bowling")
+    
+    # Get Dhoni's ODI record in Australia against Australua
+    dhoni = getPlayerDataOD(28081,opposition = 2,host=2,dir=".",
+    file="dhoniVsAusinAusOD",type="batting")
+    
+    ## End(Not run)
+    '''
+
+    # Initial url to ""
+    url =""
+    suburl1 = "http://stats.espncricinfo.com/ci/engine/player/"
+    suburl2 ="?class=2;"
+    suburl3 = "template=results;"
+    suburl4 = "view=innings"
+    
+    #Set opposition
+    theOpposition = "opposition=" + opposition + ";"
+    
+    # Set host country
+    hostCountry = "host=" + host + ";"
+    
+    # Create a profile.html with the profile number
+    player = str(profile) + ".html"
+       
+    
+    # Set the home or away
+    str1=str2=""
+    #print(len(homeOrAway))
+    for i  in homeOrAway:
+        if i == 1:
+             str1 = str1 + "home_or_away=1;"
+        elif i == 2:
+             str1 = str1 + "home_or_away=2;"
+        elif i == 3:
+             str1 = str1 + "home_or_away=3;"
+    HA= str1
+    
+    # Set the type batting or bowling
+    t = "type=" + type + ";"
+    
+    # Set the result based on input
+    str2=""
+    for i in result:    
+        if i == 1:
+            str2 = str2+ "result=1;"        
+        elif i == 2:
+            str2 = str2 + "result=2;"          
+        elif i == 3:
+            str2 = str2 + "result=3;"
+        elif i == 5:
+            str2 = str2 + "result=5;"
+    
+    result =  str2 
+    
+    # Create composite URL
+    url = suburl1 + player + suburl2 + hostCountry + theOpposition + HA + result + suburl3 + t + suburl4
+    #print(url)
+    # Read the data from ESPN Cricinfo
+    dfList= pd.read_html(url)
+    
+    # Choose appropriate table from list of returned tables
+    df=dfList[3]
+    colnames= df.columns
+    # Select coiumns based on batting or bowling
+    if type=="batting" : 
+        # Select columns [1:9,11,12,13]
+        cols = list(range(0,9))
+        cols.extend([10,11,12])
+    elif type=="bowling":
+        # Check if there are the older version of 8 balls per over (BPO) column
+        # [1:8,10,11,12]
+        
+        # Select BPO column for older bowlers
+        if colnames[1] =="BPO":
+            # [1:8,10,11,12]
+             cols = list(range(0,9))
+             cols.extend([10,11,12])
+        else:
+            # Select columns [1:7,9,10,11]
+             cols = list(range(0,8))
+             cols.extend([8,9,10])
+    
+    
+    #Subset the necessary columns
+    df1 = df.iloc[:, cols]
+    
+    if not os.path.exists(dir):
+        os.mkdir(dir)
+        #print("Directory " , dir ,  " Created ")
+    else:    
+        pass
+        #print("Directory " , dir ,  " already exists, writing to this folder")
+    
+    # Create path
+    path= os.path.join(dir,file)
+    
+    if create:
+        # Write to file 
+        df1.to_csv(path)
+
+    # Return the data frame
+    return(df1)
+    
+import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from pylab import rcParams
@@ -3341,3 +3527,352 @@ def relativeBowlingER(filelist, names):
     plt.show()
     plt.gcf().clear()
     return
+
+
+##########################################################################################
+# Designed and developed by Tinniam V Ganesh
+# Date : 10 Oct 2018
+# Function: batsmanScoringRateODTT
+# This function computes and plots the batsman scoring rate of a One Day batsman
+# or a Twenty20 batsman
+#
+
+###########################################################################################
+def batsmanScoringRateODTT(file, name="A Hookshot"):
+    '''
+    Compute and plot the predicted scoring rate for a One day batsman or Twenty20
+    
+    Description
+    
+    This function computes and plots a 2nd order polynomial between the balls faced and runs scored for ODI or Twenty20
+    
+    Usage
+    
+    batsmanScoringRateODTT(file, name = "A Hookshot")
+    Arguments
+    
+    file	
+    This is the <batsman>.csv file obtained with an initial getPlayerDataOD() or getPlayerTT()
+    name	
+    Name of the batsman
+    Details
+    
+    More details can be found in my short video tutorial in Youtube https://www.youtube.com/watch?v=q9uMPFVsXsI
+    
+    Value
+    
+    None
+    
+    Note
+    
+    Maintainer: Tinniam V Ganesh <tvganesh.85@gmail.com>
+    
+    Author(s)
+    
+    Tinniam V Ganesh
+    
+    References
+    
+    http://www.espncricinfo.com/ci/content/stats/index.html
+    https://gigadom.wordpress.com/
+    
+    See Also
+    
+    batsman6s relativeBatsmanSRODTT relativeRunsFreqPerfODTT
+    
+    Examples
+    
+    # Get or use the <batsman>.csv obtained with getPlayerDataOD() or or getPlayerTT()
+    #sehwag =-getPlayerDataOD(35263,dir="./mytest", file="sehwag.csv",type="batting",
+    # homeOrAway=c(1,2,3),result=c(1,2,3,5))
+    
+    # Retrieve the file path of a data file installed with cricketr
+    batsmanScoringRateODTT("sehwag.csv","Sehwag")
+    
+    '''   
+    # Clean the batsman file and create a complete data frame
+
+    df = clean(file)
+    df['BF'] = pd.to_numeric(df['BF'])
+    df['Runs'] = pd.to_numeric(df['Runs'])
+    
+    df1 = df[['BF','Runs']].sort_values(by=['BF'])
+    
+    
+    # Set figure size
+    rcParams['figure.figsize'] = 10,6
+    
+    # Get numnber of 4s and runs scored
+    bf = pd.to_numeric(df1['BF'])
+    runs = pd.to_numeric(df1['Runs'])
+    
+     
+    atitle = name + "-" + "Balls Faced vs Runs scored" 
+    
+    # Plot no of 4s and a 2nd order curve fit   
+    plt.scatter(bf,runs, alpha=0.5)
+    plt.xlabel('Balls Faced')
+    plt.ylabel('Runs')
+    plt.title(atitle)
+    
+    # Create a polynomial of degree 2
+    poly = PolynomialFeatures(degree=2)
+    bfPoly = poly.fit_transform(bf.reshape(-1,1))
+    linreg = LinearRegression().fit(bfPoly,runs)
+    
+    plt.plot(bf,linreg.predict(bfPoly),'-r')
+
+    
+        # Predict the number of runs for 50 balls faced
+    b=poly.fit_transform((np.array(50)))
+    c=linreg.predict(b)
+    plt.axhline(y=c, color='b', linestyle=':')
+    plt.axvline(x=50, color='b', linestyle=':')
+    
+    
+    # Predict the number of runs for 100 balls faced
+    b=poly.fit_transform((np.array(100)))
+    c=linreg.predict(b)
+    plt.axhline(y=c, color='b', linestyle=':')
+    plt.axvline(x=100, color='b', linestyle=':')
+    
+    plt.text(180, 0.5,'Data source-Courtesy:ESPN Cricinfo',
+         horizontalalignment='center',
+         verticalalignment='center',
+         )
+    plt.show()
+    plt.gcf().clear()
+    return
+
+
+##########################################################################################
+# Designed and developed by Tinniam V Ganesh
+# Date : 10 Nov 2018
+# Function: batsman4s6s
+# This function computes and plots the percent of 4s,6s in total runs
+#
+###########################################################################################
+
+def batsman4s6s(frames, names) :
+    '''
+    Compute and plot a stacked barplot of runs,4s and 6s
+    
+    Description
+    
+    Compute and plot a stacked barplot of percentages of runs in (1s,2s and 3s),4s and 6s
+    
+    Usage
+    
+    batsman4s6s(frames, names)
+    Arguments
+    
+    frames	
+    List of batsman
+    names	
+    Names of batsman
+    Details
+    
+    More details can be found in my short video tutorial in Youtube https://www.youtube.com/watch?v=q9uMPFVsXsI
+    
+    Value
+    
+    None
+    
+    Note
+    
+    Maintainer: Tinniam V Ganesh <tvganesh.85@gmail.com>
+    
+    Author(s)
+    
+    Tinniam V Ganesh
+    
+    References
+    
+    http://www.espncricinfo.com/ci/content/stats/index.html
+    https://gigadom.wordpress.com/
+    
+    See Also
+    
+    batsmanScoringRateODTT, relativeRunsFreqPerfODTT, batsmanPerfBoxHist
+    
+    Examples
+    
+    # Get or use the <batsman>.csv obtained with getPlayerDataOD()
+    frames = ["./sehwag.csv","./devilliers.csv","./gayle.csv"]
+    names = ["Sehwag","De Villiurs","Gayle"]
+    
+    batsman4s6s(frames,names)
+    
+    
+    '''
+
+    df2=pd.DataFrame()
+    for file in frames:
+        df = clean(file)
+        runs = pd.to_numeric(df['Runs']).sum()
+        x4s = (pd.to_numeric(df['4s']) * 4).sum()
+        x6s = (pd.to_numeric(df['6s']) * 6).sum()
+        # Find numbers of runs from 1,2 and 3s
+        
+        runs = runs - (x4s +x6s)
+        a=[runs,x4s,x6s]
+        df1= pd.DataFrame(a)
+        df2=pd.concat([df2,df1],axis=1)
+    
+    
+    df2.columns=names
+    df3=df2.T
+    df3.columns=['Runs','4s','6s']
+    df3.plot(kind="bar",stacked=True)
+    plt.show()
+    plt.gcf().clear()
+    return
+
+##########################################################################################
+# Designed and developed by Tinniam V Ganesh
+# Date : 11 Nov 2018
+# Function: getPlayerDataSpOD
+# This function is a specialized version of getPlayerDataOD. This function gets the players data 
+# along with details on matches' venue( home/away/neutral) and the result (won,lost,drawn,tie) as 
+# 2 separate columns
+#
+###########################################################################################
+def getPlayerDataSpOD(profileNo,tdir="./data",tfile="player001.csv",ttype="batting"):
+    '''
+    Get the player data along with venue and result status
+    
+    Description
+    
+    This function is a specialized version of getPlayer Data. This function gets the players data along with details on matches' venue (home/abroad) and the result of match(won,lost,drawn) as 2 separate columns (ha & result). The column ha has 1:home and 2: overseas. The column result has values 1:won , 2;lost and :drawn match
+    
+    Usage
+    
+    getPlayerDataSp(profileNo, tdir = "./data", tfile = "player001.csv", 
+    ttype = "batting")
+    Arguments
+    
+    profileNo	
+    This is the profile number of the player to get data. This can be obtained from http://www.espncricinfo.com/ci/content/player/index.html. Type the name of the player and click search. This will display the details of the player. Make a note of the profile ID. For e.g For Sachin Tendulkar this turns out to be http://www.espncricinfo.com/india/content/player/35320.html. Hence the profile for Sachin is 35320
+    tdir	
+    Name of the directory to store the player data into. If not specified the data is stored in a default directory "./data". Default="./tdata"
+    tfile	
+    Name of the file to store the data into for e.g. tendulkar.csv. This can be used for subsequent functions. Default="player001.csv"
+    ttype	
+    type of data required. This can be "batting" or "bowling"
+    Details
+    
+    More details can be found in my short video tutorial in Youtube https://www.youtube.com/watch?v=q9uMPFVsXsI
+    
+    Value
+    
+    Returns the player's dataframe along with the homeAway and the result columns
+    
+    Note
+    
+    Maintainer: Tinniam V Ganesh <tvganesh.85@gmail.com>
+    
+    Author(s)
+    
+    Tinniam V Ganesh
+    
+    References
+    
+    http://www.espncricinfo.com/ci/content/stats/index.html
+    https://gigadom.wordpress.com/
+    
+    See Also
+    
+    getPlayerData
+    
+    Examples
+    
+    ## Not run: 
+    # Only away. Get data only for won and lost innings
+    tendulkar = getPlayerDataSp(35320,tdir="..", tfile="tendulkarsp.csv",ttype="batting")
+    
+    # Get bowling data and store in file for future
+    kumble = getPlayerDataSp(30176,tdir="..",tfile="kumblesp.csv",ttype="bowling")
+    
+    ## End(Not run)
+    '''
+
+    # Get the data for the player i
+    # Home & won
+    hw = getPlayerDataOD(profile=profileNo,dir=tdir,file=tfile,homeOrAway=[1],result=[1],type=ttype,create=False)
+    # Home & lost
+    hl = getPlayerDataOD(profile=profileNo,dir=tdir,file=tfile,homeOrAway=[1],result=[2],type=ttype,create=False)
+    # Home & tie
+    ht = getPlayerDataOD(profile=profileNo,dir=tdir,file=tfile,homeOrAway=[1],result=[3],type=ttype,create=False)
+    # Home and no result
+    hnr = getPlayerDataOD(profile=profileNo,dir=tdir,file=tfile,homeOrAway=[1],result=[5],type=ttype,create=False)
+    # Away and won
+    aw = getPlayerDataOD(profile=profileNo,dir=tdir,file=tfile,homeOrAway=[2],result=[1],type=ttype,create=False)
+    #Away and lost
+    al = getPlayerDataOD(profile=profileNo,dir=tdir,file=tfile,homeOrAway=[2],result=[2],type=ttype,create=False)
+    # Away and tie
+    at = getPlayerDataOD(profile=profileNo,dir=tdir,file=tfile,homeOrAway=[2],result=[3],type=ttype,create=False)
+    # Away and no result
+    anr = getPlayerDataOD(profile=profileNo,dir=tdir,file=tfile,homeOrAway=[2],result=[5],type=ttype,create=False)    
+    
+    # Neutal and won
+    nw = getPlayerDataOD(profile=profileNo,dir=tdir,file=tfile,homeOrAway=[3],result=[1],type=ttype,create=False)
+    # Neutral and lost
+    nl = getPlayerDataOD(profile=profileNo,dir=tdir,file=tfile,homeOrAway=[3],result=[2],type=ttype,create=False)
+    # Neutral and tie
+    nt = getPlayerDataOD(profile=profileNo,dir=tdir,file=tfile,homeOrAway=[3],result=[3],type=ttype,create=False)
+    # Neutral and no result
+    nnr = getPlayerDataOD(profile=profileNo,dir=tdir,file=tfile,homeOrAway=[3],result=[5],type=ttype,create=False)    
+    # Set the values as follows
+
+    hw['ha'] = 1
+    hw['result'] = 1
+    
+    hl['ha'] = 1
+    hl['result'] = 2
+    
+    ht['ha'] = 1
+    ht['result'] = 3
+    
+    hnr['ha'] = 1
+    hnr['result'] = 5
+    
+    aw['ha'] = 2
+    aw['result'] = 1
+    
+    al['ha'] = 2
+    al['result'] = 2
+    
+    at['ha'] = 2
+    at['result'] = 3
+    
+    anr['ha'] =  2
+    anr['result'] =  5
+    
+    nw['ha'] = 3
+    nw['result'] = 1
+    
+    nl['ha'] = 3
+    nl['result'] = 2
+    
+    nt['ha'] = 3
+    nt['result'] = 3
+    
+    nnr['ha'] =  3
+    nnr['result'] =  5
+      
+    if not os.path.exists(tdir):
+        os.mkdir(dir)
+        #print("Directory " , dir ,  " Created ")
+    else:    
+        pass
+        #print("Directory " , dir ,  " already exists, writing to this folder")
+    
+    # Create path
+    path= os.path.join(tdir,tfile)
+        
+    df= pd.concat([hw,hl,ht,hnr,aw,al,at,anr])
+    
+    # Write to file 
+    df.to_csv(path,index=False)
+    
+    return(df)
