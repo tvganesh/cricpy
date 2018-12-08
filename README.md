@@ -12,11 +12,7 @@
 <hr>
 
 ## Description 
-
 Tools for analyzing performances of cricketers based on stats in ESPN Cricinfo Statsguru. The toolset can  be used for analysis of Tests,ODI amd Twenty20 matches of both batsmen and bowlers.
-=======
-Tools for analyzing performances of cricketers based on stats in ESPN Cricinfo Statsguru. The toolset can  be used for analysis of Tests and ODI matches of both batsmen and bowlers.
->>>>>>> 8f5e7c6d9b32527e001b7f375fa6a2ddf66cbdaa
 
 ## Installation 
 
