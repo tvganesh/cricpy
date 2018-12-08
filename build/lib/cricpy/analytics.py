@@ -3876,3 +3876,179 @@ def getPlayerDataSpOD(profileNo,tdir="./data",tfile="player001.csv",ttype="batti
     df.to_csv(path,index=False)
     
     return(df)
+    
+    
+##########################################################################################
+# Designed and developed by Tinniam V Ganesh
+# Date : 28 Nov 2018
+# Function : getPlayerDataTT
+# This function gets the One Day data of batsman/bowler and returns the data frame. This data frame can
+# stored for use in other functions
+##########################################################################################
+def getPlayerDataTT(profile,opposition="",host="",dir="./data",file="player001.csv",type="batting",
+                         homeOrAway=[1,2,3],result=[1,2,3,5],create=True) :
+    '''
+    Get the Twenty20 International player data from ESPN Cricinfo based on specific inputs and store in a file in a given directory~
+    
+    Description
+    
+    Get the Twenty20 player data given the profile of the batsman/bowler. The allowed inputs are home,away, neutralboth and won,lost,tied or no result of matches. The data is stored in a <player>.csv file in a directory specified. This function also returns a data frame of the player
+    
+    Usage
+    
+    getPlayerDataTT(profile, opposition="",host="",dir = "./data", file = "player001.csv", 
+    type = "batting", homeOrAway = c(1, 2, 3), result = c(1, 2, 3,5))
+    Arguments
+    
+    profile	
+    This is the profile number of the player to get data. This can be obtained from http://www.espncricinfo.com/ci/content/player/index.html. Type the name of the player and click search. This will display the details of the player. Make a note of the profile ID. For e.g For Virat Kohli this turns out to be 253802 http://www.espncricinfo.com/india/content/player/35263.html. Hence the profile for Sehwag is 35263
+    opposition	
+    The numerical value of the opposition country e.g.Australia,India, England etc. The values are Afghanistan:40,Australia:2,Bangladesh:25,England:1,Hong Kong:19,India:6,Ireland:29, New Zealand:5,Pakistan:7,Scotland:30,South Africa:3,Sri Lanka:8,United Arab Emirates:27, West Indies:4, Zimbabwe:9; Note: If no value is entered for opposition then all teams are considered
+    host	
+    The numerical value of the host country e.g.Australia,India, England etc. The values are Australia:2,Bangladesh:25,England:1,India:6,New Zealand:5, South Africa:3,Sri Lanka:8,United States of America:11,West Indies:4, Zimbabwe:9 Note: If no value is entered for host then all host countries are considered
+    dir	
+    Name of the directory to store the player data into. If not specified the data is stored in a default directory "./data". Default="./data"
+    file	
+    Name of the file to store the data into for e.g. kohli.csv. This can be used for subsequent functions. Default="player001.csv"
+    type	
+    type of data required. This can be "batting" or "bowling"
+    homeOrAway	
+    This is vector with either or all 1,2, 3. 1 is for home 2 is for away, 3 is for neutral venue
+    result	
+    This is a vector that can take values 1,2,3,5. 1 - won match 2- lost match 3-tied 5- no result
+    Details
+    
+    More details can be found in my short video tutorial in Youtube https://www.youtube.com/watch?v=q9uMPFVsXsI
+    
+    Value
+    
+    Returns the player's dataframe
+    
+    Note
+    
+    Maintainer: Tinniam V Ganesh <tvganesh.85@gmail.com>
+    
+    Author(s)
+    
+    Tinniam V Ganesh
+    
+    References
+    
+    http://www.espncricinfo.com/ci/content/stats/index.html
+    https://gigadom.wordpress.com/
+    
+    See Also
+    
+    bowlerWktRateTT getPlayerData
+    
+    Examples
+    
+    ## Not run: 
+    # Only away. Get data only for won and lost innings
+    kohli =getPlayerDataTT(253802,dir="../cricketr/data", file="kohli1.csv",
+    type="batting")
+    
+    # Get bowling data and store in file for future
+    ashwin = getPlayerDataTT(26421,dir="../cricketr/data",file="ashwin1.csv",
+    type="bowling")
+    
+    kohli =getPlayerDataTT(253802,opposition = 2,host=2,dir="../cricketr/data", 
+    file="kohli1.csv",type="batting")
+    
+
+    '''
+
+    # Initial url to ""
+    url =""
+    suburl1 = "http://stats.espncricinfo.com/ci/engine/player/"
+    suburl2 ="?class=3;"
+    suburl3 = "template=results;"
+    suburl4 = "view=innings"
+    
+    #Set opposition
+    theOpposition = "opposition=" + opposition + ";"
+    
+    # Set host country
+    hostCountry = "host=" + host + ";"
+    
+    # Create a profile.html with the profile number
+    player = str(profile) + ".html"
+       
+    
+    # Set the home or away
+    str1=str2=""
+    #print(len(homeOrAway))
+    for i  in homeOrAway:
+        if i == 1:
+             str1 = str1 + "home_or_away=1;"
+        elif i == 2:
+             str1 = str1 + "home_or_away=2;"
+        elif i == 3:
+             str1 = str1 + "home_or_away=3;"
+    HA= str1
+    
+    # Set the type batting or bowling
+    t = "type=" + type + ";"
+    
+    # Set the result based on input
+    str2=""
+    for i in result:    
+        if i == 1:
+            str2 = str2+ "result=1;"        
+        elif i == 2:
+            str2 = str2 + "result=2;"          
+        elif i == 3:
+            str2 = str2 + "result=3;"
+        elif i == 5:
+            str2 = str2 + "result=5;"
+    
+    result =  str2 
+    
+    # Create composite URL
+    url = suburl1 + player + suburl2 + hostCountry + theOpposition + HA + result + suburl3 + t + suburl4
+    #print(url)
+    # Read the data from ESPN Cricinfo
+    dfList= pd.read_html(url)
+    
+    # Choose appropriate table from list of returned tables
+    df=dfList[3]
+    colnames= df.columns
+    # Select coiumns based on batting or bowling
+    if type=="batting" : 
+        # Select columns [1:9,11,12,13]
+        cols = list(range(0,9))
+        cols.extend([10,11,12])
+    elif type=="bowling":
+        # Check if there are the older version of 8 balls per over (BPO) column
+        # [1:8,10,11,12]
+        
+        # Select BPO column for older bowlers
+        if colnames[1] =="BPO":
+            # [1:8,10,11,12]
+             cols = list(range(0,9))
+             cols.extend([10,11,12])
+        else:
+            # Select columns [1:7,9,10,11]
+             cols = list(range(0,8))
+             cols.extend([8,9,10])
+    
+    
+    #Subset the necessary columns
+    df1 = df.iloc[:, cols]
+    
+    if not os.path.exists(dir):
+        os.mkdir(dir)
+        #print("Directory " , dir ,  " Created ")
+    else:    
+        pass
+        #print("Directory " , dir ,  " already exists, writing to this folder")
+    
+    # Create path
+    path= os.path.join(dir,file)
+    
+    if create:
+        # Write to file 
+        df1.to_csv(path)
+
+    # Return the data frame
+    return(df1)
