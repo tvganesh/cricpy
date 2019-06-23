@@ -4652,13 +4652,13 @@ def teamWinLossStatusVsOpposition(file,teamName,opposition=["all"],homeOrAway=["
     
         plt.xlabel('Opposition')
         plt.ylabel('Win/Loss count')
-        plt.suptitle(atitle)
-        plt.title(asub)
-        plt.text(5, 10,'Data source-Courtesy:http://cricsheet.org',
+        plt.suptitle(atitle,fontsize=8)
+        plt.title(asub,fontsize=8)
+        plt.text(5, 10,'Data source-Courtesy:ESPN Cricinfo',
          horizontalalignment='center',
          verticalalignment='center',
          )
-        plt.subplots_adjust( bottom=0.9)
+        plt.tight_layout(rect=[0, 0, 1, 0.95])
         plt.show()
         plt.gcf().clear()
     else:
@@ -4771,13 +4771,13 @@ def teamWinLossStatusAtGrounds(file,teamName,opposition=["all"],homeOrAway=["all
         df2.plot(kind='bar',stacked=False,legend=True,fontsize=8,width=1)
         plt.xlabel('Ground')
         plt.ylabel('Win/Loss count')
-        plt.suptitle(atitle)
-        plt.title(asub)
-        plt.text(5, 3,'Data source-Courtesy:http://cricsheet.org',
+        plt.suptitle(atitle,fontsize=8)
+        plt.title(asub,fontsize=8)
+        plt.text(5, 3,'Data source-Courtesy-ESPN Cricinfo',
          horizontalalignment='center',
          verticalalignment='center',
          )
-        plt.subplots_adjust( bottom=0.9)
+        plt.tight_layout(rect=[0, 0, 1, 0.95])
         plt.show()
         plt.gcf().clear()
     else:
@@ -4934,9 +4934,8 @@ def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"]
         plt.text(startDate, -1, 'lost')
         plt.xlabel('Date')
         plt.ylabel('Win/Loss status')
-        plt.suptitle(atitle)
-        plt.title(asub)
-        plt.subplots_adjust( bottom=0.9)
+        plt.suptitle(atitle,fontsize=8)
+        plt.title(asub,fontsize=8)
         plt.show()
         plt.gcf().clear()
     
@@ -4952,8 +4951,7 @@ def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"]
         plt.text(startDate, -1, 'lost')
         plt.xlabel('Date')
         plt.ylabel('Win/Loss status')
-        plt.suptitle(atitle)
-        plt.title(asub)
-        plt.subplots_adjust( bottom=0.9)
+        plt.suptitle(atitle,fontsize=8)
+        plt.title(asub,fontsize=8)
         plt.show()
         plt.gcf().clear()
