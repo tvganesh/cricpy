@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="cricpy",
-    version="0.0.19",
+    version="0.0.20",
     author="Tinniam V Ganesh",
     author_email="tvganesh.85@gmail.com",
     description="Analyze Cricketers Based on ESPN Cricinfo Statsguru",

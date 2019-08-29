@@ -679,7 +679,7 @@ import matplotlib.pyplot as plt
 from pylab import rcParams
 ##########################################################################################
 # Designed and developed by Tinniam V Ganesh
-# Date : 13 Oct 2018
+# Date : 28 Aug 2019
 # Function: batsmanMeanStrikeRate
 # This function plot the Mean Strike Rate of the batsman against Runs scored as a continous graph
 #
@@ -755,7 +755,7 @@ def batsmanMeanStrikeRate(file, name="A Hitter"):
         batsman['Runs']=pd.to_numeric(batsman['Runs'])
         a=(batsman['Runs'] > bins[i-1]) & (batsman['Runs'] <= bins[i])
         df=batsman[a]
-        SR.append(np.mean(df['SR']))
+        SR.append(np.mean(pd.to_numeric(df['SR']))) # Changed 28-8-2019
         
         atitle = name + "-" + "Strike rate in run ranges" 
     
@@ -2532,7 +2532,7 @@ def bowlerWktsRunsPlot(file, name="A Googly"):
 import pandas as pd
 ##########################################################################################
 # Designed and developed by Tinniam V Ganesh
-# Date : 11 Oct 2018
+# Date : 28 Aug 2019
 # Function : clean
 # This function cleans the batsman's data file and returns the cleaned data frame for use in
 # other functions
@@ -2584,7 +2584,7 @@ def clean(batsmanCSV):
     clean(pathToFile)
     '''
     
-    df = pd.read_csv(batsmanCSV,na_values=['-'])
+    df = pd.read_csv(batsmanCSV,dtype=str,na_values=['-'])
       
     a = df['Runs'] != "DNB"
     batsman = df[a]
@@ -2599,6 +2599,9 @@ def clean(batsmanCSV):
       
     # Remove the "* indicating not out
     batsman['Runs']= batsman['Runs'].str.replace(r"[*]","")
+    
+    # Fix the Opposition column, remove "^ v"
+    batsman['Opposition']  =batsman['Opposition'].str.replace("v ","")
       
     # Drop rows which have NA
     batsman = batsman.dropna()
@@ -2610,7 +2613,7 @@ def clean(batsmanCSV):
   
 ##########################################################################################
 # Designed and developed by Tinniam V Ganesh
-# Date : 19 Oct 2018
+# Date : 28 Aug 2019
 # Function : cleanBowlerData
 # This function cleans the bowler's data file and returns the cleaned data frame for use in
 # other functions
@@ -2664,7 +2667,7 @@ def cleanBowlerData(file):
     cleanBowlerData(pathToFile)
     '''
     # Read the <bowler>.csv file
-    df = pd.read_csv(file,na_values=['-'])
+    df = pd.read_csv(file,dtype=str,na_values=['-'])
     
     # Remove rows with did not bowl
     
@@ -2674,6 +2677,9 @@ def cleanBowlerData(file):
     # Remove rows with 'TDNB' - team did not bowl
     c =df['Overs'] != "TDNB"
     df = df[c]
+    
+    # Fix the Opposition column, remove "^ v"
+    df['Opposition']  =df['Opposition'].str.replace("v ","")
     
     # Get all complete cases
     bowlerComplete = df.dropna(axis=1)
@@ -4955,3 +4961,207 @@ def plotTimelineofWinsLosses(file,teamName,opposition=["all"],homeOrAway=["all"]
         plt.title(asub,fontsize=8)
         plt.show()
         plt.gcf().clear()
+        
+##########################################################################################
+# Designed and developed by Tinniam V Ganesh
+# Date : 28 Aug 2019
+# Function: getPlayerDataHA
+# This function gets the performances of players in Test, ODI and T20 in home/away
+#
+###########################################################################################
+        
+def getPlayerDataHA(profileNo,tdir=".",tfile="player001.csv",type="batting",matchType="Test"):
+    '''
+    Return the CSV file and a dataframe of a player's matches along with home/away column
+
+    Description
+
+    This function saves the players data as a CSV file and also returns a data frame. A new column home/away/neutral is added
+
+    Usage
+
+    getPlayerDataHA(profileNo,tdir=".",tfile="player001.csv",type="batting",
+                         matchType="Test")
+    Arguments
+
+    profileNo
+    The profile number of the player
+    tdir
+    The name of the directory to save the CSV file
+    tfile
+    The name of the CSV file
+    type
+    This parameter should be 'batting' for batsman data and 'bowling' for bowlers
+    matchType
+    Match type - Test, ODI or T20
+    Value
+
+    dataframe
+
+    Note
+
+    Maintainer: Tinniam V Ganesh tvganesh.85@gmail.com
+
+    Author(s)
+
+    Tinniam V Ganesh
+
+    References
+
+    http://www.espncricinfo.com/ci/content/stats/index.html
+    https://gigadom.in/
+    See Also
+
+    teamWinLossStatusVsOpposition batsman4s
+
+    Examples
+
+    ## Not run:
+    #Get data for Tendulkar
+    df=getPlayerDataHA(profileno=35320,tfile="tendulkarHA.csv")
+    #Get the bowling data for Jadeja in ODIs
+    df=getPlayerDataHA(profileNo=234675,tfile="jadejaODIHA.csv",type="bowling",matchType='ODI')
+    # Get the data for Kohli in T20s for batting
+    df=getPlayerDataHA(profileNo=253802,tfile="kohliT20HA.csv",matchType="T20")
+
+    '''
+    print("Working...")
+    # Check if matchType is Test
+    if(matchType == "Test"):
+        home = getPlayerData(profile=profileNo,homeOrAway=[1],type=type) # Home
+        away = getPlayerData(profile=profileNo,homeOrAway=[2],type=type) # Away
+        home['ha']="home"
+        away['ha']="away"
+        df = pd.concat([home,away])
+    elif (matchType == "ODI"):# For ODIs
+        home = getPlayerDataOD(profile=profileNo,homeOrAway=[1],type=type) #Home
+        away = getPlayerDataOD(profile=profileNo,homeOrAway=[2],type=type) #Away
+        neutral = getPlayerDataOD(profile=profileNo,homeOrAway=[3],type=type) #Neutral
+        home['ha']="home"
+        away['ha']="away"
+        neutral['ha']="neutral"
+        df = pd.concat([home,away,neutral])
+    elif (matchType == "T20"): #T20
+        home = getPlayerDataTT(profile=profileNo,homeOrAway=[1],type=type) #Home
+        away = getPlayerDataTT(profile=profileNo,homeOrAway=[2],type=type) #Away
+        neutral = getPlayerDataTT(profile=profileNo,homeOrAway=[3],type=type) #Neutral
+        home['ha']="home"
+        away['ha']="away"
+        neutral['ha']="neutral"
+        df =pd.concat([home,away,neutral])
+   
+    
+    df['Opposition']  =df['Opposition'].str.replace("v ","")
+    # Create path
+    path= os.path.join(tdir,tfile)
+   
+    # Write to file 
+    df.to_csv(path,index=False)
+
+    #Return dataframe
+    return(df)
+##########################################################################################
+# Designed and developed by Tinniam V Ganesh
+# Date : 28 Aug 2019
+# Function: getPlayerDataOppnHA
+# This function gets the performances of players against specific opposition during 
+# specific intervals
+#
+###########################################################################################    
+    
+def getPlayerDataOppnHA(infile,outfile,dir=".",opposition=["all"],homeOrAway=["all"],
+                                 startDate="2001-01-01",endDate="2019-01-01",save=True):
+    '''
+    Return a filtered CSV file for a player against specified opposition, at home/away venues during an interval
+
+    Description
+
+    This function saves the filtered players data as a CSV file for matches against specified opposition, at home.away venues for a specified interval
+
+    Usage
+
+    getPlayerDataOppnHA(infile,outfile,dir=".",opposition=c("all"),homeOrAway=c("all"),
+                              startDate="2001-01-01",endDate="2019-01-01")
+    Arguments
+
+    infile
+    The input CSV HA file for the player
+    outfile
+    The name of the output CSV file which is filtered file based on opposition,home/away for a period
+    dir
+    The name of the directory to store output file
+    opposition
+    This is a list of opposition for e.g. ["Australia","India","South Africa"]. Default is ["all"]
+    homeOrAway
+    This is a list of "home","away" or "neutral". Default is ["all"]
+    startDate
+    This is a date from which you would like the data for player "yyyy-mm-dd" format
+    endDate
+    This is a end date till which you need data to be filtered of "yyyy-mm-dd" format
+    Value
+
+    dataframe
+
+    Note
+
+    Maintainer: Tinniam V Ganesh tvganesh.85@gmail.com
+
+    Author(s)
+
+    Tinniam V Ganesh
+
+    References
+
+    http://www.espncricinfo.com/ci/content/stats/index.html
+    https://gigadom.in/
+    See Also
+
+    teamWinLossStatusVsOpposition batsman4s6s
+
+    Examples
+
+    ## Not run:
+    #Get data for Kohli  against England in 'away' venues in the year 2014
+    df=getPlayerDataOppnHA(infile="kohliHA.csv",outfile="kohliEAN2014.csv",
+                opposition=["England","Australia","New Zealand"],
+    homeOrAway=["away"],startDate="2014-01-01",endDate="2015-01-01")
+
+    # Get data for Tendulkar between 2001 and 2002
+    df1=getPlayerDataOppnHA(file,outfile="tendulkar2001.csv",startDate="2001-01-01",
+                                                             endDate="2002-01-01")
+    '''
+  
+    df1 = pd.read_csv(infile,na_values=['-'],dtype=str)
+    if("all" in opposition):
+        #Do not filter
+        pass
+    else:
+        df1 = df1[df1['Opposition'].isin(opposition)]
+
+
+    #Check home/away/neutral and filter
+    if("all" in homeOrAway ):
+        # Do not filter
+        pass
+    else:
+        df1 =  df1[df1['ha'].isin(homeOrAway)]
+
+
+    # Convert to date
+    df1['date'] = pd.to_datetime(df1['Start Date'])
+
+
+    # Filter between start and end dates
+    df2=df1[(df1['date'] >= pd.to_datetime(startDate)) & (df1['date'] <= pd.to_datetime(endDate))]
+
+    # Create path
+    path= os.path.join(dir,outfile)
+
+    if(save == True):
+        # Write to file
+        df2.to_csv(path,index=False)
+    else:
+        pass
+
+    #Return dataframe
+    return(df2)
